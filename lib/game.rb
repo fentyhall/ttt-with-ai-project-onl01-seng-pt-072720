@@ -1,5 +1,3 @@
-require 'pry'
-
 class Game 
     attr_accessor :player_1, :player_2, :board
     WIN_COMBINATIONS = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [6,4,2]]
@@ -53,5 +51,29 @@ class Game
         elsif draw?
             puts "Cat's Game!"
         end  
+    end 
+
+    def self.start 
+        input = ""
+
+        puts "Do you want to play 0, 1 or 2 player?"
+        input = gets.strip
+        
+        if input == "0"
+                game = Game.new(player_1 = Players::Computer.new("X"), player_2 = Players::Computer.new("O"))
+        elsif input == "1" 
+            puts "Do you want go first? Press Y/N."
+            answer = ""
+            answer = gets.strip
+            if answer == "Y"
+                game = Game.new(player_1 = Players::Human.new("X"), player_2 = Players::Human.new("O"))
+            else 
+                game = Game.new(player_1 = Players::Computer.new("X"), player_2 = Players::Human.new("O"))
+            end 
+        else
+            game = Game.new(player_1 = Players::Human.new("X"), player_2 = Players::Human.new("O")) 
+        end 
+
+        game.play
     end 
 end 
