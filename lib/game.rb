@@ -1,3 +1,5 @@
+require 'pry'
+
 class Game 
     attr_accessor :player_1, :player_2, :board
     WIN_COMBINATIONS = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [6,4,2]]
@@ -35,15 +37,21 @@ class Game
     end 
 
     def turn 
-        user_input = gets.strip 
-        if self.board.valid_move?(user_input) 
-            current_player.token
+        user_input = current_player.move(board)
+        if !board.valid_move?(user_input) 
+            turn
         else
-            turn 
+            board.update(user_input, current_player)
         end 
     end 
 
     def play 
-
+        turn until over? || draw?
+        
+        if draw?
+            puts "Cat's Game!"
+        elsif won?
+            puts "Congratulations #{winner}!"
+        end 
     end 
 end 
