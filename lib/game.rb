@@ -16,23 +16,21 @@ class Game
 
     def won?
         WIN_COMBINATIONS.detect do |array|
-            board.cells[array[0]] == board.cells[array[1]] && 
-            board.cells[array[1]] == board.cells[array[2]] &&
-            board.taken?(array[0])
+            board.taken?(array[0]+1) && board.cells[array[0]] == board.cells[array[1]] && board.cells[array[1]] == board.cells[array[2]]
         end
     end  
 
     def draw?
-        !won? && board.full?
+        board.full? && !won? 
     end 
 
     def over?
-        draw? || won? || board.full?
+        draw? || won?
     end 
 
     def winner 
-        if winning_array = won?
-            board.cells[winning_array[0]]
+        if won?
+            board.cells[won?.last]
         end  
     end 
 
@@ -46,12 +44,22 @@ class Game
     end 
 
     def play 
-        turn until over? || draw?
-        
+        while !over?
+            turn
+        end
+
+        if won?
+            # binding.pry 
+            puts "Congratulations #{winner}!"
+        end 
+
         if draw?
             puts "Cat's Game!"
-        elsif won?
-            puts "Congratulations #{self.winner}!"
-        end 
+        end             
+        # if winner == "X" || winner == "O"
+        #     binding.pry 
+        #     puts "Congratulations #{winner}!"
+        #     end 
+        # end 
     end 
 end 
