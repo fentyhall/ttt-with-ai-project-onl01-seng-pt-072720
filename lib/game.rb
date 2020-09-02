@@ -49,17 +49,9 @@ class Game
         end
 
         if won?
-            # binding.pry 
             puts "Congratulations #{winner}!"
-        end 
-
-        if draw?
+        elsif draw?
             puts "Cat's Game!"
-        end             
-        # if winner == "X" || winner == "O"
-        #     binding.pry 
-        #     puts "Congratulations #{winner}!"
-        #     end 
-        # end 
+        end  
     end 
 end 
