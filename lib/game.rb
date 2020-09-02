@@ -32,7 +32,7 @@ class Game
 
     def winner 
         if winning_array = won?
-            board.cells[winning_array.first]
+            board.cells[winning_array[0]]
         end  
     end 
 
